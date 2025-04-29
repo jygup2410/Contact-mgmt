@@ -35,11 +35,23 @@ public class ContactService {
         }
     }
 
-    public List<Contact> getContactsByStartingLetter(char letter) {
-        return repository.findByStartingLetter(letter);
+    public List<Contact> getContactsByContainingLetter(char letter) {
+        return repository.findByContainingLetter(letter);
     }
+    
 
     public Contact findContactByName(String name) {
         return repository.findByName(name);
     }
+
+    public void updateContactName(String oldName, String newName) {
+        Contact contact = repository.findByName(oldName);
+        if (contact != null) {
+            contact.setName(newName);
+            System.out.println("Contact name updated successfully");
+        } else {
+            System.out.println("Contact not found");
+        }
+    }
+    
 }

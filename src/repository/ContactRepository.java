@@ -41,13 +41,14 @@ public class ContactRepository {
         return null;
     }
 
-    public List<Contact> findByStartingLetter(char letter) {
+    public List<Contact> findByContainingLetter(char letter) {
         List<Contact> result = new ArrayList<>();
         for (Contact contact : contacts) {
-            if (contact.getName().toLowerCase().charAt(0) == Character.toLowerCase(letter)) {
+            if (contact.getName().toLowerCase().indexOf(Character.toLowerCase(letter)) != -1) {
                 result.add(contact);
             }
         }
         return result;
     }
+    
 }

@@ -6,23 +6,24 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ContactController controller = new ContactController();
 
-        int choice;
+        String choice;
         do {
             System.out.println("\n--- Contact Management System ---");
             System.out.println("1. Add Contact");
             System.out.println("2. View All Contacts");
-            System.out.println("3. Update Contact");
-            System.out.println("4. Delete Contact");
-            System.out.println("5. View Contacts by Starting Letter");
-            System.out.println("6. Find Contact by Name");
-            System.out.println("7. Exit");
+            System.out.println("3. Update Contact Phone no.");
+            System.out.println("4. Update Contact Name");
+            System.out.println("5. Delete Contact");
+            System.out.println("6. View Contacts by Starting Letter");
+            System.out.println("7. Find Contact by Name");
+            System.out.println("8. Exit");
             System.out.print("Enter your choice: ");
 
-            choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            choice = scanner.nextLine().trim().toLowerCase(); 
+             
 
             switch (choice) {
-                case 1:
+                case "add":
                     System.out.print("Enter name: ");
                     String name = scanner.nextLine();
                     
@@ -38,11 +39,11 @@ public class Main {
                     controller.addContact(name, phone);
                     break;
 
-                case 2:
+                case "view":
                     controller.viewContacts();
                     break;
 
-                case 3:
+                case "update phone":
                     System.out.print("Enter the name of the contact to update: ");
                     String updateName = scanner.nextLine();
 
@@ -58,32 +59,39 @@ public class Main {
                     controller.updateContact(updateName, newPhone);
                     break;
 
-                case 4:
+                case "update name":
+                    System.out.print("Enter the name of the contact to rename: ");
+                    String oldName = scanner.nextLine();
+                    System.out.print("Enter the new name: ");
+                    String newName = scanner.nextLine();
+                    controller.updateContactName(oldName, newName);
+                    break;
+                case "delete":
                     System.out.print("Enter the name of the contact to delete: ");
                     String deleteName = scanner.nextLine();
                     controller.deleteContact(deleteName);
                     break;
 
-                case 5:
+                case "search":
                     System.out.print("Enter the starting letter: ");
                     char letter = scanner.nextLine().charAt(0);
                     controller.viewContactsByLetter(letter);
                     break;
 
-                case 6:
+                case "find":
                     System.out.print("Enter the name of the contact to find: ");
                     String findName = scanner.nextLine();
                     controller.findContact(findName);
                     break;
 
-                case 7:
+                case "exit":
                     System.out.println("Exiting... Thank you!");
                     break;
 
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 7);
+        } while (!choice.equals("exit"));
 
         scanner.close();
     }

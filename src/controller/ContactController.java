@@ -32,15 +32,16 @@ public class ContactController {
     }
 
     public void viewContactsByLetter(char letter) {
-        List<Contact> contacts = service.getContactsByStartingLetter(letter);
+        List<Contact> contacts = service.getContactsByContainingLetter(letter);
         if (contacts.isEmpty()) {
-            System.out.println("No contacts found starting with" + letter + ".");
+            System.out.println("No contacts found containing letter '" + letter + "'.");
         } else {
             for (Contact contact : contacts) {
                 System.out.println(contact);
             }
         }
     }
+    
 
     public void findContact(String name) {
         Contact contact = service.findContactByName(name);
@@ -50,4 +51,9 @@ public class ContactController {
             System.out.println("Contact not found");
         }
     }
+
+    public void updateContactName(String oldName, String newName) {
+        service.updateContactName(oldName, newName);
+    }
+    
 }
