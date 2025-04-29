@@ -2,6 +2,7 @@ package service;
 
 import entity.Contact;
 import java.util.List;
+import java.util.stream.Collectors;
 import repository.ContactRepository;
 
 public class ContactService {
@@ -9,49 +10,33 @@ public class ContactService {
 
     public void addContact(Contact contact) {
         repository.save(contact);
-        System.out.println("Contact added successfully");
     }
 
     public List<Contact> getAllContacts() {
         return repository.findAll();
     }
 
-    public void deleteContact(String name) {
-        boolean removed = repository.deleteByName(name);
-        if (removed) {
-            System.out.println("Contact deleted successfully");
-        } else {
-            System.out.println("Contact not found");
-        }
-    }
-
     public void updateContact(String name, String newPhone) {
         Contact contact = repository.findByName(name);
         if (contact != null) {
-            contact.setPhoneNumber(newPhone);
-            System.out.println("Contact updated successfully");
-        } else {
-            System.out.println("Contact not found");
+            contact.setPhone(newPhone);
         }
-    }
-
-    public List<Contact> getContactsByContainingLetter(char letter) {
-        return repository.findByContainingLetter(letter);
-    }
-    
-
-    public Contact findContactByName(String name) {
-        return repository.findByName(name);
     }
 
     public void updateContactName(String oldName, String newName) {
         Contact contact = repository.findByName(oldName);
         if (contact != null) {
             contact.setName(newName);
-            System.out.println("Contact name updated successfully");
-        } else {
-            System.out.println("Contact not found");
         }
     }
-    
+
+    public void deleteContact(String name) {
+        repository.deleteByName(name);
+    }
+
+    public List<Contact> searchByNameFragment(String fragment) {
+        return repository.findAll().stream()
+                .filter(contact -> contact.getName().toLowerCase().contains(fragment.toLowerCase()))
+                .collect(Collectors.toList());
+    }
 }

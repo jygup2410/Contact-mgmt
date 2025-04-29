@@ -2,14 +2,13 @@ package entity;
 
 public class Contact {
     private String name;
-    private String phoneNumber;
+    private String phone;
 
-    public Contact(String name, String phoneNumber) {
+    public Contact(String name, String phone) {
         this.name = name;
-        this.phoneNumber = phoneNumber;
+        this.phone = phone;
     }
 
-    // Getters and Setters
     public String getName() {
         return name;
     }
@@ -18,16 +17,16 @@ public class Contact {
         this.name = name;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override
     public String toString() {
-        return "Name: " + name + ", Phone: " + phoneNumber;
+        return "Name: " + name + ", Phone: " + phone;
     }
 }

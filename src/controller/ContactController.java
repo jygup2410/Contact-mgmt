@@ -8,8 +8,7 @@ public class ContactController {
     private ContactService service = new ContactService();
 
     public void addContact(String name, String phone) {
-        Contact contact = new Contact(name, phone);
-        service.addContact(contact);
+        service.addContact(new Contact(name, phone));
     }
 
     public void viewContacts() {
@@ -17,9 +16,7 @@ public class ContactController {
         if (contacts.isEmpty()) {
             System.out.println("No contacts found.");
         } else {
-            for (Contact contact : contacts) {
-                System.out.println(contact);
-            }
+            contacts.forEach(System.out::println);
         }
     }
 
@@ -31,29 +28,16 @@ public class ContactController {
         service.deleteContact(name);
     }
 
-    public void viewContactsByLetter(char letter) {
-        List<Contact> contacts = service.getContactsByContainingLetter(letter);
-        if (contacts.isEmpty()) {
-            System.out.println("No contacts found containing letter '" + letter + "'.");
-        } else {
-            for (Contact contact : contacts) {
-                System.out.println(contact);
-            }
-        }
-    }
-    
-
-    public void findContact(String name) {
-        Contact contact = service.findContactByName(name);
-        if (contact != null) {
-            System.out.println(contact);
-        } else {
-            System.out.println("Contact not found");
-        }
-    }
-
     public void updateContactName(String oldName, String newName) {
         service.updateContactName(oldName, newName);
     }
-    
+
+    public void searchByNameFragment(String fragment) {
+        List<Contact> results = service.searchByNameFragment(fragment);
+        if (results.isEmpty()) {
+            System.out.println("No contacts found containing: " + fragment);
+        } else {
+            results.forEach(System.out::println);
+        }
+    }
 }

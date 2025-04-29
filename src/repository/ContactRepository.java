@@ -40,15 +40,4 @@ public class ContactRepository {
         }
         return null;
     }
-
-    public List<Contact> findByContainingLetter(char letter) {
-        List<Contact> result = new ArrayList<>();
-        for (Contact contact : contacts) {
-            if (contact.getName().toLowerCase().indexOf(Character.toLowerCase(letter)) != -1) {
-                result.add(contact);
-            }
-        }
-        return result;
-    }
-    
 }

@@ -5,36 +5,34 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ContactController controller = new ContactController();
-
         String choice;
+
         do {
             System.out.println("\n--- Contact Management System ---");
-            System.out.println("1. Add Contact");
-            System.out.println("2. View All Contacts");
-            System.out.println("3. Update Contact Phone no.");
-            System.out.println("4. Update Contact Name");
-            System.out.println("5. Delete Contact");
-            System.out.println("6. View Contacts by Starting Letter");
-            System.out.println("7. Find Contact by Name");
-            System.out.println("8. Exit");
+            System.out.println("Add Contact -> add");
+            System.out.println("View All Contacts -> view");
+            System.out.println("Update Contact Phone no. -> update ph");
+            System.out.println("Update Contact Name -> update name");
+            System.out.println("Delete Contact -> delete");
+            System.out.println("Search Contacts -> search");
+            System.out.println("Exit -> exit");
             System.out.print("Enter your choice: ");
 
-            choice = scanner.nextLine().trim().toLowerCase(); 
-             
+            choice = scanner.nextLine().trim().toLowerCase();
 
             switch (choice) {
                 case "add":
                     System.out.print("Enter name: ");
                     String name = scanner.nextLine();
-                    
+
                     String phone;
                     do {
                         System.out.print("Enter 10-digit phone number: ");
                         phone = scanner.nextLine();
-                        if (phone.length() != 10 || !phone.matches("\\d{10}")) {
+                        if (!phone.matches("\\d{10}")) {
                             System.out.println("Invalid phone number. Please enter exactly 10 digits.");
                         }
-                    } while (phone.length() != 10 || !phone.matches("\\d{10}"));
+                    } while (!phone.matches("\\d{10}"));
 
                     controller.addContact(name, phone);
                     break;
@@ -43,29 +41,28 @@ public class Main {
                     controller.viewContacts();
                     break;
 
-                case "update phone":
+                case "update ph":
                     System.out.print("Enter the name of the contact to update: ");
                     String updateName = scanner.nextLine();
-
                     String newPhone;
                     do {
                         System.out.print("Enter new 10-digit phone number: ");
                         newPhone = scanner.nextLine();
-                        if (newPhone.length() != 10 || !newPhone.matches("\\d{10}")) {
+                        if (!newPhone.matches("\\d{10}")) {
                             System.out.println("Invalid phone number. Please enter exactly 10 digits.");
                         }
-                    } while (newPhone.length() != 10 || !newPhone.matches("\\d{10}"));
-
+                    } while (!newPhone.matches("\\d{10}"));
                     controller.updateContact(updateName, newPhone);
                     break;
 
                 case "update name":
-                    System.out.print("Enter the name of the contact to rename: ");
+                    System.out.print("Enter current name: ");
                     String oldName = scanner.nextLine();
-                    System.out.print("Enter the new name: ");
+                    System.out.print("Enter new name: ");
                     String newName = scanner.nextLine();
                     controller.updateContactName(oldName, newName);
                     break;
+
                 case "delete":
                     System.out.print("Enter the name of the contact to delete: ");
                     String deleteName = scanner.nextLine();
@@ -73,15 +70,9 @@ public class Main {
                     break;
 
                 case "search":
-                    System.out.print("Enter the starting letter: ");
-                    char letter = scanner.nextLine().charAt(0);
-                    controller.viewContactsByLetter(letter);
-                    break;
-
-                case "find":
-                    System.out.print("Enter the name of the contact to find: ");
-                    String findName = scanner.nextLine();
-                    controller.findContact(findName);
+                    System.out.print("Enter name or part of name to search: ");
+                    String fragment = scanner.nextLine();
+                    controller.searchByNameFragment(fragment);
                     break;
 
                 case "exit":
