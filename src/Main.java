@@ -19,14 +19,22 @@ public class Main {
             System.out.print("Enter your choice: ");
 
             choice = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine(); // consume newline
 
             switch (choice) {
                 case 1:
                     System.out.print("Enter name: ");
                     String name = scanner.nextLine();
-                    System.out.print("Enter phone number: ");
-                    String phone = scanner.nextLine();
+                    
+                    String phone;
+                    do {
+                        System.out.print("Enter 10-digit phone number: ");
+                        phone = scanner.nextLine();
+                        if (phone.length() != 10 || !phone.matches("\\d{10}")) {
+                            System.out.println("Invalid phone number. Please enter exactly 10 digits.");
+                        }
+                    } while (phone.length() != 10 || !phone.matches("\\d{10}"));
+
                     controller.addContact(name, phone);
                     break;
 
@@ -37,8 +45,16 @@ public class Main {
                 case 3:
                     System.out.print("Enter the name of the contact to update: ");
                     String updateName = scanner.nextLine();
-                    System.out.print("Enter new phone number: ");
-                    String newPhone = scanner.nextLine();
+
+                    String newPhone;
+                    do {
+                        System.out.print("Enter new 10-digit phone number: ");
+                        newPhone = scanner.nextLine();
+                        if (newPhone.length() != 10 || !newPhone.matches("\\d{10}")) {
+                            System.out.println("Invalid phone number. Please enter exactly 10 digits.");
+                        }
+                    } while (newPhone.length() != 10 || !newPhone.matches("\\d{10}"));
+
                     controller.updateContact(updateName, newPhone);
                     break;
 
@@ -65,7 +81,7 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("Invalid choice.");
+                    System.out.println("Invalid choice. Please try again.");
             }
         } while (choice != 7);
 
