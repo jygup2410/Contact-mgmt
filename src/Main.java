@@ -15,9 +15,10 @@ public class Main {
             System.out.println("Update Contact Name -> update name");
             System.out.println("Delete Contact -> delete");
             System.out.println("Search Contacts -> search");
+            System.out.println("Find Contacts by any digits in Phone Number -> phone");
             System.out.println("Exit -> exit");
-            System.out.print("Enter your choice: ");
 
+            System.out.print("\nEnter your choice: ");
             choice = scanner.nextLine().trim().toLowerCase();
 
             switch (choice) {
@@ -39,6 +40,12 @@ public class Main {
 
                 case "view":
                     controller.viewContacts();
+                    break;
+
+                case "phone":
+                    System.out.print("Enter digits to search in phone numbers: ");
+                    String digits = scanner.nextLine();
+                    controller.viewContactsByPhoneDigits(digits);
                     break;
 
                 case "update ph":

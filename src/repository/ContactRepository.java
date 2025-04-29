@@ -3,6 +3,7 @@ package repository;
 import entity.Contact;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ContactRepository {
     private List<Contact> contacts = new ArrayList<>();
@@ -33,11 +34,21 @@ public class ContactRepository {
     }
 
     public Contact findByName(String name) {
-        for (Contact contact : contacts) {
-            if (contact.getName().equalsIgnoreCase(name)) {
-                return contact;
-            }
-        }
-        return null;
+        return contacts.stream()
+                .filter(contact -> contact.getName().equalsIgnoreCase(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public List<Contact> findByContainingLetter(char letter) {
+        return contacts.stream()
+                .filter(contact -> contact.getName().toLowerCase().contains(String.valueOf(letter).toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Contact> findByPartialPhone(String digits) {
+        return contacts.stream()
+                .filter(contact -> contact.getPhone().contains(digits))
+                .collect(Collectors.toList());
     }
 }

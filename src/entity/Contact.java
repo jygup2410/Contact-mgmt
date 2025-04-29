@@ -27,6 +27,6 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "Name: " + name + ", Phone: " + phone;
+        return String.format("%-20s | %-15s", name, phone); // Aligning name and phone properly
     }
 }

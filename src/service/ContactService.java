@@ -39,4 +39,8 @@ public class ContactService {
                 .filter(contact -> contact.getName().toLowerCase().contains(fragment.toLowerCase()))
                 .collect(Collectors.toList());
     }
+
+    public List<Contact> getContactsByPhoneContains(String digits) {
+        return repository.findByPartialPhone(digits);
+    }
 }
